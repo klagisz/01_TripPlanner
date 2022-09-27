@@ -1,0 +1,114 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Manage Quiz</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<div class="container marketing">
+
+    <h2><p th:text="${trip.name}"></h2>
+    <h3>Places to visit :)</h3>
+
+    <div class="col-md-2">
+        <a th:href="@{'/place/add/'+${trip.id}}">Add new one</a>
+    </div>
+
+    <div class="row col-12">
+
+        <div class="row col-12 header">
+            <!--<div class="col-1"><b>Visit</b></div>-->
+            <div class="col-2"><b>Name</b></div>
+            <div class="col-2"><b>Address</b></p></div>
+            <div class="col-2"><b>Note</b></p></div>
+            <div class="col-2"><b>Type of place</b></p></div>
+            <div class="col-1"><b>See on map</b></p></div>
+            <div class="col-2"><b>Action</b></p></div>
+        </div>
+
+        <div class="row col-12 colored" th:each="i : ${placeList}">
+
+            <input type="text" id="idPlace" th:value="${i.id}" hidden>
+            <!--<div class="col-1"><input type="checkbox" th:checked="${i.visited}"/></div>-->
+            <div class="col-2"><p th:text="${i.name}"></p></div>
+            <div class="col-2"><p th:text="${i.adress}"></p></div>
+            <div class="col-2"><p th:text="${i.note}"></p></div>
+            <div class="col-2"><p th:text="${i.getTypeOfPlace()}"></p></div>
+            <div class="col-1"><a th:href="@{'/place/details/'+${i.id}}">Map</a></div>
+            <!--<div class="col-md-2">-->
+            <!--<div class="col-md-2">-->
+            <!--<a th:href="@{'/place/delete/'+${i.id}}">Delete</a>-->
+            <!--</div>-->
+            <!--<div class="col-md-2">-->
+            <!--<a th:href="@{'/place/modify/'+${i.id}}">Modify</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div>
+                <button type="button" class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown">Action<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{'/place/delete/'+${i.id}}">Delete</a></li>
+                    <li><a th:href="@{'/place/modify/'+${i.id}}">Modify</a></li>
+                    <!--TODO: Dodać oznaczenie czy miejsce jest zwiedzone i zrobić nową templatkę
+                    <!--z miejsacmi zwiedzonymi dodać przycisk do zobaczenia zwiedzonych miejsc-->
+                </ul>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown"><p th:text="${i.visited}"></p><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{'/place/visit/'+${i.id}}" th:text="${!i.visited}"></a></li>
+                    <!--<li><a th:href="@{'/place/visit/'+${'FALSE'}}">Not visited</a></li>-->
+
+                </ul>
+            </div>
+
+        </div>
+
+        <footer th:replace=" template :: footer"></footer>
+        <!--<script>-->
+        <!--&lt;!&ndash;// function callbackFunction(xmlhttp) {&ndash;&gt;-->
+        <!--&lt;!&ndash;//     console.log(xmlhttp);&ndash;&gt;-->
+        <!--&lt;!&ndash;// }&ndash;&gt;-->
+        <!--&lt;!&ndash;//&ndash;&gt;-->
+        <!--&lt;!&ndash;// var placeId = document.getElementById("idPlace").value;&ndash;&gt;-->
+        <!--console.log(placeId);-->
+        <!--// var pageAttr = document.getElementById("idPlace");-->
+        <!--var a = document.createElement('a');-->
+        <!--a.textContent = document.getElementById('idPlace');-->
+        <!--document.body.appendChild(a);-->
+
+
+        <!--function makeRequest() {-->
+        <!--var xhttp = new XMLHttpRequest();-->
+        <!--// var initialPage = location.assign('/place/visit/');-->
+        <!--// var page = location.assign(document.getElementById("idPlace").value);-->
+        <!--xhttp.open("GET", window.location.assign('/place/visit/') + a.value);-->
+        <!--xhttp.onreadystatechange = function () {-->
+        <!--if (this.readyState == 4 && this.status == 200) {-->
+        <!--alert(this.responseText);-->
+        <!--}-->
+        <!--};-->
+        <!--xhttp.send();-->
+        <!--}-->
+
+        <!--xhttp.open("GET", window.location.assign('/place/visit/')+ encodeURIComponent(placeId));-->
+
+
+        <!--var file_path = 'host/path/file.ext';-->
+        <!--var a = document.createElement('A');-->
+        <!--a.href = file_path;-->
+        <!--a.download = file_path.substr(file_path.lastIndexOf('/') + 1);-->
+        <!--document.body.appendChild(a);-->
+        <!--a.click();-->
+        <!--document.body.removeChild(a);-->
+
+
+        <!--// </script>-->
+</body>
+</html>

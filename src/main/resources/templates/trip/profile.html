@@ -1,0 +1,121 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Manage Quiz</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<!--<div th:if="${error_message}">-->
+<!--<div class="alert alert-danger" role="alert"><p th:text="${error_message}"></p></div>-->
+<!--</div>-->
+
+<div class="container marketing">
+
+    <form th:action="@{/trip/control}">
+
+        <div class="row">
+
+            <div class="row col-md-8">
+                <div class="col-md-6">Select your trip:</div>
+                <div class="col-md-6">
+                    <select class="form-control" name="id">
+                        <option class="form-control" th:each="option: ${trip_list}" th:value="${option.id}"
+                                th:text="${option.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row col-md-8">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <input class="form-control" type="submit" th:value="Filter">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+    <div th:each="i : ${single_trip}">
+
+        <div class="row col-12 ">
+
+            <div class="row col-12 header">
+                <div class="col-2">Name of trip</div>
+                <div class="col-3">Begin date</p></div>
+                <div class="col-2">End date</p></div>
+                <div class="col-2">Comments</p></div>
+                <div class="col-2">Owner</p></div>
+            </div>
+            <!--Nazwa Quizu-->
+            <div class="row col-12">
+                <div class="col-2"><p th:text="${i.name}"></p></div>
+                <div class="col-3"><p th:text="${i.beginDate}"></p></div>
+                <div class="col-2"><p th:text="${i.endDate}"></p></div>
+                <div class="col-2"><p th:text="${i.validationTime}"></p></div>
+                <div class="col-2"><p th:text="${i.owner.email}"></p></div>
+                <div class="col-md-1">
+                    <a th:href="@{'/api/quiz/modify/' +${i.id}}">Modify</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <!--Add Question -->
+        <div class="row col-md-8">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <a class="form-control button" th:href="@{'/api/question/add?id=' + ${i.id}}">Add new question</a>
+                <!--<form  th:action="@{'/api/question/add?id=' + ${i.id}}" th:method="put">-->
+                <!--<input class="form-control" type="submit" value="Add question"/>-->
+                <!--</form>-->
+            </div>
+        </div>
+
+        <hr>
+
+        <div th:each="j : ${i.getQuestionList()}">
+
+            <!--Pytanie-->
+            <div class="row col-12">
+                <div class="row"></div>
+                <div class="col-md-1"></div>
+                <div class="col-10 question"><p th:text="${j.question}"></p></div>
+                <div class="col-md-1">
+                    <a th:href="@{'/api/question/modify/' +${j.id}}">Modify</a>
+                </div>
+
+                <!--Odpowedzi do pytania-->
+                <div class="row col-12 colored" th:each="k : ${j.selectionsList}">
+                    <div class="row"></div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-9">
+                        <p th:if="${k.correct == true }" class="trueAnswer" th:text="${k.text}"></p>
+                        <p th:if="${k.correct == false}" class="falseAnswer" th:text="${k.text}"></p>
+                    </div>
+                    <div class="col-md-1">
+                        <a th:href="@{'/api/answer/modify/' +${k.id}}">Modify</a>
+                    </div>
+                </div>
+
+                <div class="row col-md-12"><p></p></div>
+
+                <div class="row col-md-8">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <a class="form-control button" th:href="@{'/api/answer/add?id=' + ${j.id}}">Add answer</a>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+        </div>
+
+    </div>
+
+</div>
+
+<footer th:replace=" template :: footer"></footer>
+
+</body>
+</html>

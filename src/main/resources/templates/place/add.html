@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Add place</title>
+</head>
+<body class="text-center">
+<div class="d-flex w-75 h-100 p-3 mx-auto flex-column">
+
+    <div th:replace="template :: navigator"></div>
+
+    <div class="container">
+
+        <form th:action="@{/place/add}" method="post" th:object="${added_place}">
+
+            <input class="row form-control" type="number" th:field="*{tripId}"
+                   th:value="*{tripId}" hidden>
+
+            <div class="row col-md-12">
+                <div class="col-md-3">Name:</div>
+                <div class="col-md-6"><input class="form-control" type="text"
+                                             th:field="*{name}"></div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3">Adress:</div>
+                <div class="col-md-6"><input class="form-control" type="text" th:field="*{adress}"
+                                             placeholder="Country, City, Street, Number"></div>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-3">Note:</div>
+                <div class="col-md-6"><input class="form-control" type="text" th:field="*{note}"></div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-3">Place type:</div>
+                <div class="col-md-6">
+                    <label class="container" th:each="type : ${types_of_places}">
+                        <input type="radio" th:name="${type.name()}" th:value="${type.name()}"
+                               th:field="*{type}" th:text="${type.name()}">
+                    </label>
+                </div>
+            </div>
+
+            <!--<div class="col-md-6" th:each="type : ${types_of_places}">-->
+            <!--<input type="radio" th:name="${type.name()}" th:value="${type.name()}"-->
+            <!--th:field="*{type}" th:text="${type.name()}">-->
+            <!--</div>-->
+
+            <!--<div class="col-md-6" th:each="type : ${types_of_places}">-->
+            <!--<input class="row form-control col-md-6" type="radio" th:name="${type.name()}"-->
+            <!--th:value="${type.name()}" th:field="*{type}" th:text="${type.name()}">-->
+            <!--</div>-->
+
+            <div class=" row col-md-12">
+                <div class="col-md-3"></div>
+                <div class="col-md-6"><input type="submit" class="form-control"
+                                             value="submit"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace=" template :: footer"></footer>
+
+</body>
+</html>

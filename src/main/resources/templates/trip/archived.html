@@ -1,0 +1,66 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Trip List</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<div class="container">
+
+        <div>
+            <button type="button" class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"><p th:text="${tripStatus}"></p><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a th:href="@{'/trip/tripList/'+${'PLANED'}}">Planed</a></li>
+                <li><a th:href="@{'/trip/tripList/'+${'ARCHIVE'}}">Archived</a></li>
+                <li><a th:href="@{'/trip/tripList/'+${'POSTPONED'}}">Postponed</a></li>
+
+            </ul>
+        </div>
+
+        <div class="row col-12" style="margin-top: 8px;">
+
+            <div class="row col-12 header">
+                <div class="col-2"><b>Name:</b></div>
+                <div class="col-2"><b>Begin date</b></p></div>
+                <div class="col-2"><b>End date</b></p></div>
+                <div class="col-2"><b>Comments</b></p></div>
+                <!--<div class="col-2"><b>Owner</b></p></div>-->
+                <div class="col-2"><b>Action</b></p></div>
+            </div>
+
+            <div class="row col-12 colored" th:each="i : ${tripList}">
+                <div class="col-2"><p th:text="${i.name}"></p></div>
+                <div class="col-2"><p th:text="${i.beginDate}"></p></div>
+                <div class="col-2"><p th:text="${i.endDate}"></p></div>
+                <div class="col-2"><p th:text="${i.comments}"></p></div>
+                <!--<div class="col-2"><p th:text="${i.appuser.email}"></p></div>-->
+                <div class="col-md-2">
+                    <div class="col-md-2">
+                        <a th:href="@{'/place/list/'+${i.id}}">Place list</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown">Status<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <!--<li><a th:href="@{'/trip/archive/' + ${i.id}}">Archive</a></li>-->
+                        <li><a th:href="@{'/trip/delete/' + ${i.id}}">Delete</a></li>
+                        <!--<li><a th:href="@{'/trip/postponed/' + ${i.id}}">Postponed</a></li>-->
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:replace=" template :: footer"></footer>
+
+</body>
+</html>

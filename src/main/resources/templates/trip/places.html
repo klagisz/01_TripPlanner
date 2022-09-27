@@ -1,0 +1,95 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Places</title>
+</head>
+<body class="text-center">
+<div class="d-flex w-75 h-100 p-3 mx-auto flex-column">
+    <div th:replace="template :: navigator"></div>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4"><b>Places to see for trip:</b></div>
+                    <div class="col-md-2"><p th:text="${trip.name}"></p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col-12">
+
+            <div class="row col-12 header">
+                <!--<div class="col-1"><b>Visit</b></div>-->
+                <div class="col-2"><b>Name</b></div>
+                <div class="col-2"><b>Address</b></p></div>
+                <div class="col-2"><b>Note</b></p></div>
+                <div class="col-2"><b>Type of place</b></p></div>
+                <div class="col-1"><b>See on map</b></p></div>
+                <div class="col-2"><b>Action</b></p></div>
+            </div>
+
+            <div class="row col-12 colored" th:each="i : ${placeList}">
+
+                <!--<input type="text" id="idPlace" th:value="${i.id}" hidden>-->
+                <!--<div class="col-1"><input type="checkbox" th:checked="${i.visited}"/></div>-->
+                <div class="col-2"><p th:text="${i.name}"></p></div>
+                <div class="col-2"><p th:text="${i.adress}"></p></div>
+                <div class="col-2"><p th:text="${i.note}"></p></div>
+                <div class="col-2"><p th:text="${i.getTypeOfPlace()}"></p></div>
+                <div class="col-1"><a th:href="@{'/place/details/'+${i.id}}">Map</a></div>
+                <div class="col-md-2">
+                    <div class="col-md-2">
+                        <a th:href="@{'/place/delete/'+${i.id}}">Delete</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a th:href="@{'/place/modify/'+${i.id}}">Modify</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace=" template :: footer"></footer>
+<!--<script>-->
+    <!--// function callbackFunction(xmlhttp) {-->
+    <!--//     console.log(xmlhttp);-->
+    <!--// }-->
+    <!--//-->
+    <!--// var placeId = document.getElementById("idPlace").value;-->
+    // console.log(placeId);
+    // // var pageAttr = document.getElementById("idPlace");
+    // var a = document.createElement('a');
+    // a.textContent = document.getElementById('idPlace');
+    // document.body.appendChild(a);
+    //
+    //
+    // function makeRequest() {
+    //     var xhttp = new XMLHttpRequest();
+    //     // var initialPage = location.assign('/place/visit/');
+    //     // var page = location.assign(document.getElementById("idPlace").value);
+    //     xhttp.open("GET", window.location.assign('/place/visit/') + a.value);
+    //     xhttp.onreadystatechange = function () {
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             alert(this.responseText);
+    //         }
+    //     };
+    //     xhttp.send();
+    // }
+
+    //xhttp.open("GET", window.location.assign('/place/visit/')+ encodeURIComponent(placeId));
+
+
+    // var file_path = 'host/path/file.ext';
+    // var a = document.createElement('A');
+    // a.href = file_path;
+    // a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+    // document.body.appendChild(a);
+    // a.click();
+    // document.body.removeChild(a);
+
+
+// </script>
+</body>
+</html>

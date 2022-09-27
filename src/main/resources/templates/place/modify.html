@@ -1,0 +1,58 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Modify Trip</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<div class="container">
+
+    <form th:action="@{/place/modify}" method="post" th:object="${modify_place}">
+
+
+            <input class="row form-control" type="number" th:field="*{placeId}" th:value="*{placeId}" hidden>
+        
+        <div class="row col-md-10">
+            <div class="col-md-6">Name:</div>
+            <div class="col-md-6"><input class="form-control" type="text" th:field="*{name}"></div>
+        </div>
+
+        <div class="row col-md-10">
+            <div class="col-md-6">Address:</div>
+            <div class="col-md-6"><input class="form-control" type="text" th:field="*{adress}"
+                                         placeholder="Country, City, Street, Number"></div>
+        </div>
+
+        <div class="row col-md-10">
+            <div class="col-md-6">Type of place:</div>
+            <div class="col-md-6">
+                <label class="container" th:each="type : ${types_of_places}">
+                    <input type="radio" th:name="${type.name()}" th:value="${type.name()}"
+                           th:field="*{typeOfPlace}" th:text="${type.name()}">
+                </label>
+            </div>
+        </div>
+
+        <div class="row col-md-10">
+            <div class="col-md-6">Note:</div>
+            <div class="col-md-6"><input class="form-control" type="text" th:field="*{note}"></div>
+        </div>
+
+        <div class="row col-md-10">
+            <div class="col-md-6"></div>
+            <div class="col-md-6"><input type="submit" class="form-control" value="Modify"></div>
+        </div>
+
+    </form>
+</div>
+
+<footer th:replace=" template :: footer"></footer>
+<!--<script>-->
+    <!--function saveInDB() {-->
+
+    <!--}-->
+<!--</script>-->
+</body>
+</html>

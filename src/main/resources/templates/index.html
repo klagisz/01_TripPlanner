@@ -1,0 +1,26 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<main role="main">
+    <div class="container marketing">
+        <h2>Welcome</h2>
+
+        <div th:if="${logged}">
+            <p th:text="${logged}"></p>
+        </div>
+
+        <!--<div th:if="${logged}">-->
+            <!--<p th:text="${logged}"></p>-->
+        <!--</div>-->
+    </div>
+</main>
+
+<footer th:replace=" template :: footer"></footer>
+</body>
+</html>

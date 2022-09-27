@@ -1,0 +1,68 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Register Form</title>
+</head>
+<body class="text-center">
+<div class="d-flex w-75 h-100 p-3 mx-auto flex-column">
+    <div th:replace="template :: navigator"></div>
+
+    <h2>Profile:</h2>
+    <div th:if="${error_message}">
+        <div class="alert alert-danger" role="alert"><p th:text="${error_message}"></p></div>
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="row col-md-12">
+                <div class="col-md-12"><p th:text="${appuser.name}"></p></div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-12"><p th:text="${appuser.surname}"></p></div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-12"><p th:text="${appuser.email}"></p></div>
+            </div>
+
+            <!--<div class="row col-md-12">-->
+
+                <!--<div class="col-md-4"><p th:text="${appuser.name}"></p></div>-->
+
+                <!--<div class="col-md-4"><p th:text="${appuser.surname}"></p></div>-->
+
+                <!--<div class="col-md-4"><p th:text="${appuser.email}"></p></div>-->
+
+            <!--</div>-->
+
+            <div class="row col-md-12">
+                <div class="col-md-12"><a th:href="@{'/appuser/modify/' + ${appuser.id}}">Modify</a></div>
+                <div class="col-md-12"><a th:href="@{'/appuser/password/' + ${appuser.id}}">Change Password</a>
+                </div>
+            </div>
+
+
+            <!--<div class="col-md-4">-->
+            <!---->
+            <!--</div>-->
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <!--<div class="col-md-4">-->
+            <!--<a th:href="@{'/api/user/modify' + ${appuser.id}}">Modify</a>-->
+            <!--</div>-->
+            <!--<div class="col-md-4">-->
+            <!--<a th:href="@{'/api/user/change_password' + ${appuser.id}}">Change Password</a>-->
+            <!--</div>-->
+        </div>
+
+
+    </div>
+</div>
+<footer th:replace=" template :: footer"></footer>
+</body>
+</html>

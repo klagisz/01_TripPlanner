@@ -1,0 +1,43 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<div th:if="${error_message}">
+<div class="alert alert-danger" role="alert"><p th:text="${error_message}"></p></div>
+</div>
+
+<main role="main">
+
+    <div class="container marketing">
+
+        <form th:action="@{/login}" method="post">
+
+            <div class="row">
+
+                <div class="row col-md-8">
+                    <div class="col-md-6"><label for="username">Email:</label></div>
+                    <div class="col-md-6"><input class="form-control" name="username" id="username" type="text"></div>
+                </div>
+                <div class="row col-md-8">
+                    <div class="col-md-6"><label for="password">Password:</label></div>
+                    <div class="col-md-6"><input class="form-control" name="password" id="password" type="password">
+                    </div>
+                </div>
+                <div class="row col-md-8">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6"><input class="form-control" type="submit" value="Login"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer th:replace=" template :: footer"></footer>
+
+</body>
+</html>

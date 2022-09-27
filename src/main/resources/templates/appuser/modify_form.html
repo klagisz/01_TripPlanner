@@ -1,0 +1,42 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Change password</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<div class="container">
+
+    <form th:action="@{/appuser/modify}" method="post" th:object="${modify_user}">
+
+        <input class="row form-control" type="number" th:field="*{userId}" th:value="*{userId}" hidden>
+
+        <div class="row col-md-10">
+            <div class="col-md-6">Name:</div>
+            <div class="col-md-6"><input class="form-control" type="text" th:field="*{name}"></div>
+        </div>
+
+        <div class="row col-md-10">
+            <div class="col-md-6">Surname:</div>
+            <div class="col-md-6"><input class="form-control" type="text" th:field="*{surname}"></div>
+        </div>
+
+        <div class="row col-md-10">
+            <div class="col-md-6">Email:</div>
+            <div class="col-md-6"><input class="form-control" type="text" th:field="*{email}"></div>
+        </div>
+
+        <div class="row col-md-10">
+            <div class="col-md-6"></div>
+            <div class="col-md-6"><input type="submit" class="form-control" value="Modify"></div>
+        </div>
+
+    </form>
+</div>
+
+<footer th:replace=" template :: footer"></footer>
+
+</body>
+</html>

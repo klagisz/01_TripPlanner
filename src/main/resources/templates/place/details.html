@@ -1,0 +1,97 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace=" template :: headeer">
+    <meta charset="UTF-8">
+    <title>Place details</title>
+</head>
+
+<body class="text-center">
+<header th:replace="template :: header"></header>
+
+<div class="container">
+
+    <h2>Place locaton</h2>
+
+    <hr>
+
+    <div class="row col-12">
+
+        <div class="row col-12 header">
+            <div class="col-2">Name:</div>
+            <div class="col-3">Adress</p></div>
+            <div class="col-2">Type of place</p></div>
+            <div class="col-2">Note</p></div>
+        </div>
+
+        <div class="row col-12 colored">
+            <div class="col-2"><p th:text="${single_place.name}"></p></div>
+            <div class="col-3"><p th:text="${single_place.adress}"></p></div>
+            <div class="col-2"><p th:text="${single_place.getTypeOfPlace()}"></p></div>
+            <div class="col-2"><p th:text="${single_place.note}"></p></div>
+        </div>
+        <input type="text" id="city" th:value="${address_city}" hidden>
+        <input type="text" id="country" th:value="${address_country}" hidden>
+        <input type="text" id="street" th:value="${address_street}" hidden>
+        <input type="text" id="number" th:value="${address_number}" hidden>
+    </div>
+
+    <!--<input id="pac-input" class="controls" type="text" placeholder="Search Box">-->
+
+    <div class="row col-md-12 mapHeight" id="mapdiv">
+    </div>
+</div>
+
+<footer th:replace=" template :: footer"></footer>
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script>
+    function callbackFunction(xmlhttp) {
+        console.log(xmlhttp);
+    }
+
+    var street = document.getElementById("street").value;
+    var country = document.getElementById("country").value;
+    var city = document.getElementById("city").value;
+    var number = document.getElementById("number").value;
+
+    console.log(street);
+    console.log(country);
+    console.log(city);
+    console.log(number);
+
+    map = new OpenLayers.Map("mapdiv");
+    map.addLayer(new OpenLayers.Layer.OSM());
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        }
+    };
+    xhttp.open("GET", "https://nominatim.openstreetmap.org/search/?country=" + country +
+        "&city=" + city +
+        "&street=" + number + " " + street + "&format=json", true);
+    // xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.responseType = 'json';
+    xhttp.onload = function () {
+        var jsonResponse = xhttp.response;
+        var element1 = jsonResponse[0];
+        console.log(element1);
+
+        var lonLat = new OpenLayers.LonLat(element1.lon, element1.lat)
+            .transform(
+                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                map.getProjectionObject() // to Spherical Mercator Projection
+            );
+
+        var zoom = 16;
+
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        map.addLayer(markers);
+
+        markers.addMarker(new OpenLayers.Marker(lonLat));
+
+        map.setCenter(lonLat, zoom);
+    };
+    xhttp.send();
+</script>
+</body>
+</html>
